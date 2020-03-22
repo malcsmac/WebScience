@@ -9,7 +9,7 @@ auth.set_access_token("465827087-dKE0ELcXKd8TAJ03IJb7FoC6WXFt1pnmXALpGG5n", "oUx
 # MongoDB Database connection setup
 client = MongoClient("mongodb://localhost:27017/")
 db  = client.twitter_crawler
-collection = db['tweets']
+collection = db.smalldb
 
 # Create API object
 api = tweepy.API(auth)
@@ -20,27 +20,13 @@ rest = api.search(['president', 'trump', 'whitehouse'], lang=["en"])
 
 
 for item in rest:
-##    username = rest[item]._json["user"]["screen_name"]
-##    text = rest[item]._json["text"]
-##    date = rest[item]._json["created_at"]
-##
-##    #parse date
-##    created = datetime.strptime(date, '%a %b %d %H:%M:%S +0000 %Y')
-##    print(created)
-##
-##    tweetDoc = { "date": created, "username": username, "text": text }
-    db.tweets.insert_one(item._json)
+    collection.insert_one(item._json)
 
-
-
-
-# Create a tweet
 
 class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
-        db.tweets.insert_one(status._json)
-##        print(status)
+        collection.insert_one(status._json)
 
 
 
