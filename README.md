@@ -16,7 +16,6 @@ Uses k-means to group usernames and hashtags then text.
 To run: edit the mongoDB connection details (database name and collection). 
 
 
-
-sampledata.json
+Tweets.json
 ================
 Exported json file of mongodb, import to mongodb for above python files to work
